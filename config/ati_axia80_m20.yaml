@@ -1,0 +1,90 @@
+# ATI Axia80-M20 Force/Torque Sensor Configuration
+# Specs from https://www.ati-ia.com/products/ft/ft_models.aspx?id=Axia80
+
+ft_sensor:
+  ros__parameters:
+    # General settings
+    sensor_name: "ati_axia80"
+    serial_number: "FT12345"  # Replace with actual serial number when available
+    sensor_frame: "ati_axia80_measurement_link"
+    publish_rate: 500.0  # Hz
+    rdt_sampling_rate: 500.0  # Hz (RDT protocol sampling rate)
+    
+    # Communication settings
+    use_hardware_interface: false  # Set to true for real hardware
+    hardware_interface_type: "ethercat"  # Using EtherCAT model of Axia80-M20
+    
+    # EtherCAT configuration (primary communication method for this sensor)
+    use_ethercat: true  # Using the EtherCAT version of Axia80-M20
+    ethercat_slave_id: 1  # EtherCAT slave ID for the sensor
+    ethercat_pdo_index: 0x6000  # PDO index for process data
+    ethercat_master: "TwinCAT"  # TwinCAT EtherCAT master
+    ethercat_update_rate: 500  # Hz
+    
+    # Alternative IP settings (for diagnostic/configuration only)
+    ip_address: "192.168.1.1"  # IP address for diagnostics
+    port: 49152  # Diagnostics port
+    timeout_ms: 1000  # Communication timeout
+    
+    # Integration mode with LBR
+    mounting_location: "flange"  # Options: 'flange', 'wrist', 'custom'
+    mounting_orientation: "ceiling"  # Options: 'floor', 'ceiling', 'wall'
+    
+    # Sensor characteristics (ATI Axia80-M20)
+    sensor_type: "ati_axia"
+    max_measurement:
+      force_x: 500.0  # N
+      force_y: 500.0  # N
+      force_z: 900.0  # N
+      torque_x: 20.0  # Nm
+      torque_y: 20.0  # Nm
+      torque_z: 20.0  # Nm
+    resolution:
+      force: 0.25  # N
+      torque: 0.01  # Nm
+    
+    # Calibration and bias settings
+    calibration_matrix: [1.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+                          0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
+                          0.0, 0.0, 1.0, 0.0, 0.0, 0.0,
+                          0.0, 0.0, 0.0, 1.0, 0.0, 0.0,
+                          0.0, 0.0, 0.0, 0.0, 1.0, 0.0,
+                          0.0, 0.0, 0.0, 0.0, 0.0, 1.0]
+    
+    bias_threshold: 0.1  # Force threshold (N) for automatic bias
+    use_hardware_biasing: true  # Use hardware-based biasing when available
+    
+    # Filters
+    filter_enabled: true
+    filter_type: "low_pass"  # Options: 'low_pass', 'moving_average', 'kalman'
+    filter_cutoff_freq: 20.0  # Hz
+    moving_average_window: 10  # Samples, only used if filter_type is 'moving_average'
+    
+    # Visualization
+    enable_visualization: true
+    force_arrow_scale: 0.01  # m/N
+    torque_arrow_scale: 0.02  # m/Nm
+    
+    # TwinCAT 3 Direct Integration Settings (for EtherCAT Axia80-M20 sensor)
+    twincat:
+      enabled: true  # Aktiviert, da EtherCAT-Version des Sensors verwendet wird
+      lan_interface: "eth0"  # Network interface for EtherCAT connection
+      host_ip: "192.168.2.10"  # Host (ROS) computer IP
+      twincat_ip: "192.168.2.100"  # TwinCAT computer IP
+      twincat_version: 3  # TwinCAT 3 wird verwendet
+      use_ads: true  # Use ADS protocol for configuration
+      ads_port: 851  # ADS port
+      ads_net_id: "192.168.2.100.1.1"  # ADS Net ID of the TwinCAT system
+      cycletime_ms: 2  # Cycle time in ms
+      ethercat_master_id: 0  # TwinCAT EtherCAT Master ID
+      ethercat_scan_rate_hz: 500  # EtherCAT scan frequency
+  
+  # Simulation-specific parameters
+  simulation:
+    ros__parameters:
+      use_sim_time: true
+      simulate_noise: true
+      noise_mean: 0.0
+      noise_stddev: 0.1  # N or Nm
+      simulated_contact_threshold: 5.0  # Force threshold (N) for simulated contact detection
+      obstacle_detection_distance: 0.02  # m, distance for obstacle detection

@@ -1,0 +1,80 @@
+# Obstacle Configuration for Adaptive Surface Contact Simulation
+#
+# This file defines virtual obstacles for the surface contact simulation.
+# These obstacles will be used to generate force feedback and visual representations.
+
+obstacle_manager:
+  ros__parameters:
+    # General configuration
+    publish_frequency: 10.0  # Hz
+    reference_frame: "world"
+    obstacle_config_path: "$(find adaptive_simulation)/config/obstacles.yaml"
+    
+    # List of obstacles
+    obstacles:
+      - id: "wall_1"
+        type: "box"
+        pose:
+          position: [0.5, 0.0, 0.5]
+          orientation: [0.0, 0.0, 0.0, 1.0]  # quaternion (x, y, z, w)
+        dimensions: [0.02, 0.5, 0.5]  # x, y, z for box
+        material: "rigid"
+        contact_stiffness: 5000.0
+        friction_coefficient: 0.5
+        color: [0.8, 0.2, 0.2, 0.8]  # r, g, b, a
+      
+      - id: "cylinder_1"
+        type: "cylinder"
+        pose:
+          position: [0.4, 0.4, 0.3]
+          orientation: [0.0, 0.0, 0.0, 1.0]
+        dimensions: [0.05, 0.3]  # radius, height for cylinder
+        material: "soft"
+        contact_stiffness: 1000.0
+        friction_coefficient: 0.3
+        color: [0.2, 0.8, 0.2, 0.8]
+      
+      - id: "sphere_1"
+        type: "sphere"
+        pose:
+          position: [0.3, -0.3, 0.4]
+          orientation: [0.0, 0.0, 0.0, 1.0]
+        dimensions: [0.08]  # radius for sphere
+        material: "medium"
+        contact_stiffness: 2000.0
+        friction_coefficient: 0.4
+        color: [0.2, 0.2, 0.8, 0.8]
+      
+      - id: "surface_1"
+        type: "plane"
+        pose:
+          position: [0.0, 0.0, 0.0]
+          orientation: [0.0, 0.0, 0.0, 1.0]
+        dimensions: [1.0, 1.0]  # width, length for plane
+        material: "rigid"
+        contact_stiffness: 8000.0
+        friction_coefficient: 0.7
+        color: [0.5, 0.5, 0.5, 1.0]
+
+# Material library (used by the contact simulation)
+material_properties:
+  rigid:
+    young_modulus: 20000000.0  # Pa
+    poisson_ratio: 0.3
+    damping_coefficient: 0.01
+  
+  medium:
+    young_modulus: 5000000.0  # Pa
+    poisson_ratio: 0.4
+    damping_coefficient: 0.05
+  
+  soft:
+    young_modulus: 1000000.0  # Pa
+    poisson_ratio: 0.45
+    damping_coefficient: 0.1
+
+# Contact model configuration
+contact_model:
+  type: "non_linear_hunt_crossley"  # Options: linear, non_linear_hunt_crossley, hertz
+  penetration_depth_threshold: 0.005  # m
+  max_force_threshold: 50.0  # N

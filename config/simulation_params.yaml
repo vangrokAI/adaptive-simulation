@@ -1,0 +1,75 @@
+# Simulation Parameters for Adaptive Surface Contact Simulation
+# This file contains parameters that control the simulation behavior,
+# physics properties, and feedback characteristics.
+
+simulation_parameters:
+  ros__parameters:
+    # General simulation settings
+    update_rate: 500.0       # Hz, simulation update rate
+    gravity: [0.0, 0.0, -9.81]  # gravity vector [x, y, z] in m/s²
+    
+    # Contact model parameters
+    contact:
+      stiffness: 50000.0     # N/m, surface contact stiffness
+      damping: 500.0         # Ns/m, surface contact damping
+      friction_static: 0.8   # static friction coefficient
+      friction_dynamic: 0.6  # dynamic friction coefficient
+      use_custom_contact_model: true  # Enable custom contact model
+    
+    # Force feedback parameters
+    force_feedback:
+      enable: true
+      noise_mean: 0.0        # N, mean of force sensor noise (Gaussian)
+      noise_stddev: 0.05     # N, standard deviation of force sensor noise
+      low_pass_filter_cutoff: 20.0  # Hz, cutoff frequency for force feedback filtering
+      force_limit: 100.0     # N, maximum allowed force before safety stop
+      torque_limit: 30.0     # Nm, maximum allowed torque before safety stop
+      
+    # Torque feedback parameters
+    torque_feedback:
+      enable: true
+      noise_mean: 0.0        # Nm, mean of torque sensor noise
+      noise_stddev: 0.01     # Nm, standard deviation of torque sensor noise
+      low_pass_filter_cutoff: 20.0  # Hz, cutoff frequency for torque feedback filtering
+  
+    # Visualization parameters
+    visualization:
+      force_arrow_scale: 0.01  # Scale factor for force arrow visualization (m/N)
+      torque_arrow_scale: 0.05  # Scale factor for torque arrow visualization (m/Nm)
+      contact_point_size: 0.01  # m, size of contact point markers
+      force_history_length: 100  # Number of points in force history plot
+      
+    # Data logging parameters
+    logging:
+      enable: true
+      force_data: true
+      torque_data: true
+      joint_states: true
+      controller_states: true
+      obstacle_states: true
+      log_frequency: 100.0   # Hz, frequency at which to log data
+      max_log_size_mb: 1000  # Maximum log file size in MB
+      
+    # Safety parameters
+    safety:
+      enable_force_limits: true
+      enable_torque_limits: true
+      enable_velocity_limits: true
+      max_joint_velocity: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]  # rad/s
+      stop_on_collision: true
+      collision_force_threshold: 50.0  # N
+      pause_on_threshold_exceeded: true
+      
+    # Robot model parameters (specific to LBR IIWA)
+    robot:
+      use_real_joint_limits: true
+      joint_limits_margin: 0.05  # rad, safety margin from actual joint limits
+      enforce_position_limits: true
+      enforce_velocity_limits: true
+      enforce_effort_limits: true
+      max_joint_efforts: [320.0, 320.0, 176.0, 176.0, 110.0, 40.0, 40.0]  # Nm
+      
+    # Simulation testing parameters
+    testing:
+      auto_test_scenarios: false  # If true, automatically run test scenarios
+      active_test_scenario: "single_obstacle"  # Name of active test scenario from waypoints.yaml

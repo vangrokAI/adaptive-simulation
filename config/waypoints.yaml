@@ -1,0 +1,109 @@
+# Waypoint Configuration for Adaptive Surface Contact Simulation
+#
+# This file defines waypoints for the robot to follow during the simulation.
+# Waypoints can be specified in joint space or Cartesian space.
+#
+# IMPORTANT: Configuration for CEILING-MOUNTED robot (inverted installation)
+
+waypoint_configuration:
+  ros__parameters:
+    # General settings
+    reference_frame: "world"
+    use_joint_space: true  # If true, use joint space waypoints, otherwise use Cartesian
+    interpolation_type: "cubic"  # linear, cubic, quintic
+    velocity_scaling: 0.5  # Scale factor for maximum velocity (0.0-1.0)
+    acceleration_scaling: 0.3  # Scale factor for maximum acceleration (0.0-1.0)
+    dwell_time: 2.0  # Time to pause at each waypoint (seconds)
+    
+    # Joint space waypoints (7-DOF, values in radians)
+    # Configured for CEILING-MOUNTED robot
+    joint_waypoints:
+      - name: "home_position"
+        joints: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        description: "Robot home position with arm pointing downward from ceiling"
+      
+      - name: "approach_point_1"
+        joints: [0.0, -0.5, 0.0, 0.9, 0.0, -0.5, 0.0]
+        description: "Approach position before obstacle interaction (ceiling mounted)"
+      
+      - name: "contact_point_1"
+        joints: [0.0, -0.5, 0.0, 1.4, 0.0, -0.9, 0.0]
+        description: "Position that should cause obstacle contact (ceiling mounted)"
+      
+      - name: "retreat_point_1"
+        joints: [0.0, -0.5, 0.0, 0.9, 0.0, -0.5, 0.0]
+        description: "Safe retreat position after contact (ceiling mounted)"
+      
+      - name: "approach_point_2"
+        joints: [0.6, -0.3, 0.0, 0.9, 0.0, -0.7, 0.0]
+        description: "Approach for second obstacle interaction (ceiling mounted)"
+      
+      - name: "contact_point_2"
+        joints: [0.8, -0.3, 0.0, 1.2, 0.0, -0.9, 0.0]
+        description: "Second contact position (ceiling mounted)"
+      
+      - name: "retreat_point_2"
+        joints: [0.6, -0.3, 0.0, 0.9, 0.0, -0.7, 0.0]
+        description: "Safe retreat after second contact (ceiling mounted)"
+      
+      - name: "return_home"
+        joints: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]
+        description: "Return to home position (ceiling mounted)"
+    
+    # Cartesian space waypoints (position in meters, orientation in quaternion)
+    # Configured for CEILING-MOUNTED robot
+    cartesian_waypoints:
+      - name: "home_position"
+        position: [0.5, 0.0, -0.5]  # Note: Z is negative for ceiling mounting
+        orientation: [1.0, 0.0, 0.0, 0.0]  # quaternion (x, y, z, w) - 180° rotation around X
+        description: "Robot home position (ceiling mounted)"
+      
+      - name: "approach_point_1"
+        position: [0.7, 0.0, -0.4]
+        orientation: [1.0, 0.0, 0.0, 0.0]
+        description: "Approach position before obstacle interaction (ceiling mounted)"
+      
+      - name: "contact_point_1"
+        position: [0.8, 0.0, -0.4]
+        orientation: [1.0, 0.0, 0.0, 0.0]
+        description: "Position that should cause obstacle contact (ceiling mounted)"
+      
+      - name: "retreat_point_1"
+        position: [0.7, 0.0, -0.4]
+        orientation: [1.0, 0.0, 0.0, 0.0]
+        description: "Safe retreat position after contact (ceiling mounted)"
+      
+      - name: "approach_point_2"
+        position: [0.6, 0.3, -0.3]
+        orientation: [0.7071, 0.7071, 0.0, 0.0]
+        description: "Approach for second obstacle interaction (ceiling mounted)"
+      
+      - name: "contact_point_2"
+        position: [0.7, 0.4, -0.3]
+        orientation: [0.7071, 0.7071, 0.0, 0.0]
+        description: "Second contact position (ceiling mounted)"
+      
+      - name: "retreat_point_2"
+        position: [0.6, 0.3, -0.3]
+        orientation: [0.7071, 0.7071, 0.0, 0.0]
+        description: "Safe retreat after second contact (ceiling mounted)"
+      
+      - name: "return_home"
+        position: [0.5, 0.0, -0.5]
+        orientation: [1.0, 0.0, 0.0, 0.0]
+        description: "Return to home position (ceiling mounted)"
+
+# Test scenarios using the defined waypoints
+test_scenarios:
+  # Single obstacle test
+  single_obstacle:
+    waypoints: ["home_position", "approach_point_1", "contact_point_1", "retreat_point_1", "return_home"]
+    force_threshold: 5.0
+    velocity_scaling: 0.4
+    
+  # Multiple obstacle test
+  multiple_obstacles:
+    waypoints: ["home_position", "approach_point_1", "contact_point_1", "retreat_point_1", 
+                "approach_point_2", "contact_point_2", "retreat_point_2", "return_home"]
+    force_threshold: 7.0
+    velocity_scaling: 0.3

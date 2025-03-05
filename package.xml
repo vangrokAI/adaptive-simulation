@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>adaptive_simulation</name>
+  <version>0.1.0</version>
+  <description>
+    Adaptive surface contact simulation for ceiling-mounted KUKA LBR IIWA14 robot with 
+    ATI Axia80-M20 Force/Torque sensor integration via EtherCAT.
+  </description>
+
+  <maintainer email="contact@vangrok.ai">VanGrok AI</maintainer>
+  <author email="info@vangrok.ai">VanGrok AI Team</author>
+
+  <license>MIT</license>
+
+  <url type="website">https://github.com/vangrokAI/adaptive-simulation</url>
+  <url type="bugtracker">https://github.com/vangrokAI/adaptive-simulation/issues</url>
+  <url type="repository">https://github.com/vangrokAI/adaptive-simulation</url>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>ament_cmake_python</buildtool_depend>
+
+  <!-- ROS2 Core Dependencies -->
+  <depend>rclcpp</depend>
+  <depend>rclpy</depend>
+  <depend>std_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+  <depend>controller_interface</depend>
+  <depend>hardware_interface</depend>
+  <depend>pluginlib</depend>
+  <depend>launch</depend>
+  <depend>launch_ros</depend>
+
+  <!-- LBR Stack Dependencies -->
+  <depend>lbr_description</depend>
+  <depend>lbr_hardware</depend>
+  <depend>lbr_controllers</depend>
+  <depend>lbr_msgs</depend>
+
+  <!-- Simulation Dependencies -->
+  <depend>gazebo_ros</depend>
+  <depend>gazebo_ros_pkgs</depend>
+  <depend>ros_gz</depend>
+  
+  <!-- Additional Dependencies -->
+  <depend>pyads</depend>
+  <depend>yaml_cpp_vendor</depend>
+
+  <!-- Test Dependencies -->
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+  <test_depend>ament_cmake_gtest</test_depend>
+  <test_depend>ament_cmake_pytest</test_depend>
+  <test_depend>ros_testing</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+    <gazebo_ros plugin_path="${prefix}/lib" gazebo_media_path="${prefix}" gazebo_model_path="${prefix}/models"/>
+  </export>
+</package>
