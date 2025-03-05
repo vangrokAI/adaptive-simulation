@@ -56,7 +56,7 @@ ament_target_dependencies(
   controller_interface
   hardware_interface
   geometry_msgs
-  lbr_controllers
+  lbr_fri
 )
 
 # Plugin libraries
@@ -89,7 +89,7 @@ ament_target_dependencies(
   surface_contact_test
   rclcpp
   geometry_msgs
-  lbr_msgs
+  lbr_fri_msgs
 )
 target_link_libraries(surface_contact_test
   adaptive_controller
