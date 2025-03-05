@@ -98,7 +98,7 @@ Create a workspace with both this repository and the LBR stack:
 mkdir -p ~/ros2_ws/src
 cd ~/ros2_ws/src
 git clone https://github.com/vangrokAI/adaptive-simulation.git
-git clone https://github.com/kroshu/lbr-stack.git
+git clone https://github.com/lbr-stack/lbr_fri_ros2_stack.git
 
 # Build the workspace
 cd ~/ros2_ws

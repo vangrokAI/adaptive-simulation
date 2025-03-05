@@ -73,9 +73,9 @@ The simulation architecture integrates seamlessly with the ROS2 control system:
 
 2. **Robot Models**:
    ```bash
-   # LBR models are included in the lbr-stack repository
+   # LBR models are included in the lbr_fri_ros2_stack repository
    cd ~/ros2_ws
-   git clone https://github.com/kroshu/lbr-stack.git src/lbr-stack
+   git clone https://github.com/lbr-stack/lbr_fri_ros2_stack.git src/lbr_fri_ros2_stack
    cd ~/ros2_ws && colcon build --symlink-install
    ```
 

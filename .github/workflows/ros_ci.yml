@@ -36,7 +36,7 @@ jobs:
         run: |
           mkdir -p /ros_ws/src
           cd /ros_ws/src
-          git clone https://github.com/kroshu/lbr-stack.git
+          git clone https://github.com/lbr-stack/lbr_fri_ros2_stack.git
 
       - name: Copy Project into Workspace
         run: |

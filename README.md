@@ -16,7 +16,7 @@ cd ~/ros2_ws/src
 git clone https://github.com/vangrokAI/adaptive-simulation.git
 
 # Install LBR-Stack (required dependency)
-git clone https://github.com/kroshu/lbr-stack.git
+git clone https://github.com/lbr-stack/lbr_fri_ros2_stack.git
 
 # Install dependencies
 sudo apt install ros-humble-gazebo-ros-pkgs ros-humble-rviz2 ros-humble-joint-state-publisher-gui

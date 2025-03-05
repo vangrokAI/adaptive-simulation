@@ -35,10 +35,10 @@
   <depend>launch_ros</depend>
 
   <!-- LBR Stack Dependencies -->
+  <depend>lbr_fri_msgs</depend>
+  <depend>lbr_fri</depend>
   <depend>lbr_description</depend>
-  <depend>lbr_hardware</depend>
-  <depend>lbr_controllers</depend>
-  <depend>lbr_msgs</depend>
+  <depend>lbr_bringup</depend>
 
   <!-- Simulation Dependencies -->
   <depend>gazebo_ros</depend>

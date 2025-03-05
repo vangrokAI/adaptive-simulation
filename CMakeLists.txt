@@ -23,10 +23,10 @@ find_package(tf2_ros REQUIRED)
 find_package(controller_interface REQUIRED)
 find_package(hardware_interface REQUIRED)
 find_package(pluginlib REQUIRED)
+find_package(lbr_fri_msgs REQUIRED)
+find_package(lbr_fri REQUIRED)
 find_package(lbr_description REQUIRED)
-find_package(lbr_hardware REQUIRED)
-find_package(lbr_controllers REQUIRED)
-find_package(lbr_msgs REQUIRED)
+find_package(lbr_bringup REQUIRED)
 find_package(yaml_cpp_vendor REQUIRED)
 
 # Include directories
@@ -188,10 +188,10 @@ ament_export_dependencies(
   controller_interface
   hardware_interface
   pluginlib
+  lbr_fri_msgs
+  lbr_fri
   lbr_description
-  lbr_hardware
-  lbr_controllers
-  lbr_msgs
+  lbr_bringup
   yaml_cpp_vendor
 )
 
